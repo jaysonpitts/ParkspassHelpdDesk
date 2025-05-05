@@ -140,7 +140,7 @@ export default function ChatHeroWidget() {
               )}
             >
               {!message.isFromUser && (
-                <Avatar className="h-10 w-10 mr-4 bg-[#e7a5b3]/10 text-[#e7a5b3] flex items-center justify-center flex-shrink-0 rounded-xl shadow-sm border border-[#e7a5b3]/20">
+                <Avatar className="h-10 w-10 mr-4 bg-orange-100 text-orange-600 flex items-center justify-center flex-shrink-0 rounded-xl shadow-sm border border-orange-200">
                   <Bot className="h-5 w-5" />
                 </Avatar>
               )}
@@ -148,7 +148,7 @@ export default function ChatHeroWidget() {
                 "p-4 rounded-xl shadow-sm max-w-[85%]",
                 message.isFromUser 
                   ? "bg-[#332a2a] text-white" 
-                  : "bg-white text-[#332a2a] border border-[#e7a5b3]/20 dark:bg-gray-800 dark:border-gray-700 dark:text-white"
+                  : "bg-white text-[#332a2a] border border-orange-200 dark:bg-gray-800 dark:border-gray-700 dark:text-white"
               )}>
                 <p className="whitespace-pre-wrap text-base leading-relaxed">{message.content}</p>
               </div>
@@ -163,14 +163,14 @@ export default function ChatHeroWidget() {
           {/* AI Typing Indicator */}
           {isTyping && (
             <div className="mb-8 flex items-start">
-              <Avatar className="h-10 w-10 mr-4 bg-[#e7a5b3]/10 text-[#e7a5b3] flex items-center justify-center flex-shrink-0 rounded-xl shadow-sm border border-[#e7a5b3]/20">
+              <Avatar className="h-10 w-10 mr-4 bg-orange-100 text-orange-600 flex items-center justify-center flex-shrink-0 rounded-xl shadow-sm border border-orange-200">
                 <Bot className="h-5 w-5" />
               </Avatar>
-              <div className="bg-white p-4 rounded-xl shadow-sm border border-[#e7a5b3]/20 dark:bg-gray-800 dark:border-gray-700">
+              <div className="bg-white p-4 rounded-xl shadow-sm border border-orange-200 dark:bg-gray-800 dark:border-gray-700">
                 <div className="flex space-x-2 h-6 items-center">
-                  <div className="w-2.5 h-2.5 rounded-full bg-[#e7a5b3] animate-bounce"></div>
-                  <div className="w-2.5 h-2.5 rounded-full bg-[#e7a5b3] animate-bounce" style={{ animationDelay: "0.2s" }}></div>
-                  <div className="w-2.5 h-2.5 rounded-full bg-[#e7a5b3] animate-bounce" style={{ animationDelay: "0.4s" }}></div>
+                  <div className="w-2.5 h-2.5 rounded-full bg-orange-500 animate-bounce"></div>
+                  <div className="w-2.5 h-2.5 rounded-full bg-orange-500 animate-bounce" style={{ animationDelay: "0.2s" }}></div>
+                  <div className="w-2.5 h-2.5 rounded-full bg-orange-500 animate-bounce" style={{ animationDelay: "0.4s" }}></div>
                 </div>
               </div>
             </div>

@@ -45,7 +45,7 @@ export default function Home() {
   return (
     <div className="container mx-auto px-4 py-8">
       {/* Hero/Chat Section */}
-      <section className="bg-gradient-to-r from-[#e7a5b3] to-white rounded-xl text-[#332a2a] p-8 mb-8">
+      <section className="bg-gradient-to-r from-orange-500 to-amber-100 rounded-xl text-[#332a2a] p-8 mb-8">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-4xl font-bold mb-6">What can I help you with today?</h1>
           <div className="mt-8">
