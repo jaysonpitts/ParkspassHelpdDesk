@@ -10,13 +10,16 @@ import { Avatar } from "@/components/ui/avatar";
 import { apiRequest } from "@/lib/queryClient";
 
 export default function ChatWidget() {
-  const [isOpen, setIsOpen] = useState(false);
+  // Set isOpen to true by default for testing
+  const [isOpen, setIsOpen] = useState(true);
   const [inputMessage, setInputMessage] = useState("");
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const sessionId = useRef(nanoid()).current;
   
   // Temporarily use local state until socket issue is fixed
-  const [messages, setMessages] = useState<Array<{ content: string, isFromUser: boolean }>>([]);
+  const [messages, setMessages] = useState<Array<{ content: string, isFromUser: boolean }>>([
+    { content: "Hi there! I'm your Parkspass Assistant. How can I help you today?", isFromUser: false }
+  ]);
   const [isTyping, setIsTyping] = useState(false);
   const [currentResponse, setCurrentResponse] = useState('');
   
@@ -112,18 +115,6 @@ export default function ChatWidget() {
           ref={chatContainerRef}
           className="h-80 overflow-y-auto p-4 bg-gray-50 dark:bg-gray-900"
         >
-          {/* Initial Bot Message */}
-          <div className="flex mb-4">
-            <Avatar className="h-8 w-8 mr-3 bg-primary-100 text-primary-600 flex items-center justify-center flex-shrink-0">
-              <Bot className="h-4 w-4" />
-            </Avatar>
-            <div className="bg-white dark:bg-gray-800 p-3 rounded-lg shadow-sm max-w-[85%]">
-              <p className="text-gray-800 dark:text-gray-200">
-                Hi there! I'm your Parkspass Assistant. How can I help you today?
-              </p>
-            </div>
-          </div>
-
           {/* Conversation Messages */}
           {messages.map((message, index) => (
             <div
