@@ -26,18 +26,18 @@ export default function Header() {
   ];
 
   return (
-    <header className="bg-white border-b border-gray-200 sticky top-0 z-30 dark:bg-gray-900 dark:border-gray-800">
+    <header className="bg-[#332a2a] border-b border-[#413636] sticky top-0 z-30 dark:bg-[#332a2a] dark:border-[#413636]">
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
         <div className="flex items-center">
           <Link href="/" className="flex items-center">
-            <svg className="h-8 w-8 text-primary-600 dark:text-primary-500" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg className="h-8 w-8 text-[#e7a5b3] dark:text-[#e7a5b3]" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M4.5 9.5L12 4L19.5 9.5V20H4.5V9.5Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
               <path d="M9 20V14C9 13.4477 9.44772 13 10 13H14C14.5523 13 15 13.4477 15 14V20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
               <path d="M12 4L2 10.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
               <path d="M12 4L22 10.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
             </svg>
-            <span className="ml-2 text-lg font-semibold text-gray-900 dark:text-white">Parkspass</span>
-            <span className="ml-2 text-sm text-gray-500 dark:text-gray-400">Help Center</span>
+            <span className="ml-2 text-lg font-semibold text-white dark:text-white">Parkspass</span>
+            <span className="ml-2 text-sm text-gray-300 dark:text-gray-300">Help Center</span>
           </Link>
         </div>
 
@@ -51,7 +51,7 @@ export default function Header() {
           <nav className="hidden md:flex space-x-1">
             {navItems.map((item) => (
               <Link key={item.href} href={item.href}>
-                <a className="px-3 py-2 text-sm font-medium text-gray-900 rounded-md hover:bg-gray-100 dark:text-gray-100 dark:hover:bg-gray-800">
+                <a className="px-3 py-2 text-sm font-medium text-white rounded-md hover:bg-[#413636] dark:text-white dark:hover:bg-[#413636]">
                   {item.label}
                 </a>
               </Link>

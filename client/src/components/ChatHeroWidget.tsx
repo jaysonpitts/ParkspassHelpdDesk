@@ -101,7 +101,7 @@ export default function ChatHeroWidget() {
               variant={inputMessage.trim() ? "default" : "ghost"}
               className={cn(
                 "rounded-full w-10 h-10 flex items-center justify-center",
-                !inputMessage.trim() && "text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                inputMessage.trim() ? "bg-[#332a2a] hover:bg-[#413636] text-white" : "text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
               )}
               disabled={!inputMessage.trim()}
             >
@@ -127,20 +127,20 @@ export default function ChatHeroWidget() {
               )}
             >
               {!message.isFromUser && (
-                <Avatar className="h-10 w-10 mr-4 bg-violet-100 text-violet-600 flex items-center justify-center flex-shrink-0 rounded-xl shadow-sm border border-violet-200">
+                <Avatar className="h-10 w-10 mr-4 bg-[#e7a5b3]/10 text-[#e7a5b3] flex items-center justify-center flex-shrink-0 rounded-xl shadow-sm border border-[#e7a5b3]/20">
                   <Bot className="h-5 w-5" />
                 </Avatar>
               )}
               <div className={cn(
                 "p-4 rounded-xl shadow-sm max-w-[85%]",
                 message.isFromUser 
-                  ? "bg-violet-600 text-white" 
-                  : "bg-white text-gray-800 border border-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:text-white"
+                  ? "bg-[#332a2a] text-white" 
+                  : "bg-white text-[#332a2a] border border-[#e7a5b3]/20 dark:bg-gray-800 dark:border-gray-700 dark:text-white"
               )}>
                 <p className="whitespace-pre-wrap text-base leading-relaxed">{message.content}</p>
               </div>
               {message.isFromUser && (
-                <Avatar className="h-10 w-10 ml-4 bg-violet-600 text-white flex items-center justify-center flex-shrink-0 rounded-xl shadow-sm">
+                <Avatar className="h-10 w-10 ml-4 bg-[#332a2a] text-white flex items-center justify-center flex-shrink-0 rounded-xl shadow-sm">
                   <span className="text-sm font-semibold">You</span>
                 </Avatar>
               )}
@@ -150,14 +150,14 @@ export default function ChatHeroWidget() {
           {/* AI Typing Indicator */}
           {isTyping && (
             <div className="mb-8 flex items-start">
-              <Avatar className="h-10 w-10 mr-4 bg-violet-100 text-violet-600 flex items-center justify-center flex-shrink-0 rounded-xl shadow-sm border border-violet-200">
+              <Avatar className="h-10 w-10 mr-4 bg-[#e7a5b3]/10 text-[#e7a5b3] flex items-center justify-center flex-shrink-0 rounded-xl shadow-sm border border-[#e7a5b3]/20">
                 <Bot className="h-5 w-5" />
               </Avatar>
-              <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 dark:bg-gray-800 dark:border-gray-700">
+              <div className="bg-white p-4 rounded-xl shadow-sm border border-[#e7a5b3]/20 dark:bg-gray-800 dark:border-gray-700">
                 <div className="flex space-x-2 h-6 items-center">
-                  <div className="w-2.5 h-2.5 rounded-full bg-violet-400 animate-bounce"></div>
-                  <div className="w-2.5 h-2.5 rounded-full bg-violet-400 animate-bounce" style={{ animationDelay: "0.2s" }}></div>
-                  <div className="w-2.5 h-2.5 rounded-full bg-violet-400 animate-bounce" style={{ animationDelay: "0.4s" }}></div>
+                  <div className="w-2.5 h-2.5 rounded-full bg-[#e7a5b3] animate-bounce"></div>
+                  <div className="w-2.5 h-2.5 rounded-full bg-[#e7a5b3] animate-bounce" style={{ animationDelay: "0.2s" }}></div>
+                  <div className="w-2.5 h-2.5 rounded-full bg-[#e7a5b3] animate-bounce" style={{ animationDelay: "0.4s" }}></div>
                 </div>
               </div>
             </div>
