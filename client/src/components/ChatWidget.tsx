@@ -1,17 +1,13 @@
 import { useState, useRef, useEffect } from "react";
-import { MessageSquareIcon, XIcon, SendIcon, Bot } from "lucide-react";
+import { SendIcon, Bot, MicIcon, PlusIcon, SearchIcon, ImageIcon, MoreHorizontalIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { nanoid } from "nanoid";
-// import { useAIChat } from "@/lib/socket";
-import { Card } from "@/components/ui/card";
-import { Avatar } from "@/components/ui/avatar";
 import { apiRequest } from "@/lib/queryClient";
+import { Avatar } from "@/components/ui/avatar";
 
 export default function ChatWidget() {
-  // Set isOpen to true by default for testing
-  const [isOpen, setIsOpen] = useState(true);
   const [inputMessage, setInputMessage] = useState("");
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const sessionId = useRef(nanoid()).current;
@@ -21,7 +17,6 @@ export default function ChatWidget() {
     { content: "Hi there! I'm your Parkspass Assistant. How can I help you today?", isFromUser: false }
   ]);
   const [isTyping, setIsTyping] = useState(false);
-  const [currentResponse, setCurrentResponse] = useState('');
   
   const sendMessage = async (message: string) => {
     // Add user message to messages
@@ -50,10 +45,6 @@ export default function ChatWidget() {
     }
   };
 
-  const toggleChat = () => {
-    setIsOpen(!isOpen);
-  };
-
   const handleSendMessage = (e: React.FormEvent) => {
     e.preventDefault();
     if (inputMessage.trim()) {
@@ -67,116 +58,128 @@ export default function ChatWidget() {
     if (chatContainerRef.current) {
       chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
     }
-  }, [messages, currentResponse]);
-
-  // Initialize with welcome message if no messages
-  useEffect(() => {
-    if (isOpen && messages.length === 0) {
-      // Bot welcome message will be added by the server
-    }
-  }, [isOpen, messages.length]);
+  }, [messages, isTyping]);
 
   return (
-    <div className="fixed bottom-6 right-6 z-40">
-      {/* Chat Button */}
-      <Button
-        onClick={toggleChat}
-        className="w-14 h-14 rounded-full shadow-lg"
-        aria-label="Chat with Parkspass Assistant"
+    <div className="flex flex-col h-full bg-gray-900 text-white">
+      {/* Welcome Header */}
+      <div className="py-8 text-center">
+        <h1 className="text-3xl font-semibold mb-2">What would you like to know about Parkspass?</h1>
+      </div>
+
+      {/* Chat Messages */}
+      <div 
+        ref={chatContainerRef}
+        className="flex-1 overflow-y-auto px-4 lg:px-8 pb-4"
       >
-        <MessageSquareIcon className="h-6 w-6" />
-      </Button>
-
-      {/* Chat Panel */}
-      <Card
-        className={cn(
-          "absolute bottom-16 right-0 w-96 overflow-hidden transition-all duration-300 transform",
-          isOpen ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0 pointer-events-none"
-        )}
-      >
-        {/* Chat Header */}
-        <div className="bg-primary-600 px-4 py-3 text-white">
-          <div className="flex justify-between items-center">
-            <h3 className="text-lg font-medium">Parkspass Assistant</h3>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="text-white hover:text-gray-200 h-8 w-8"
-              onClick={toggleChat}
-            >
-              <XIcon className="h-5 w-5" />
-            </Button>
-          </div>
-          <p className="text-sm text-primary-100">Ask me about Utah State Parks</p>
-        </div>
-
-        {/* Chat Messages */}
-        <div
-          ref={chatContainerRef}
-          className="h-80 overflow-y-auto p-4 bg-gray-50 dark:bg-gray-900"
-        >
-          {/* Conversation Messages */}
-          {messages.map((message, index) => (
-            <div
-              key={index}
-              className={cn(
-                "flex mb-4",
-                message.isFromUser ? "justify-end" : ""
-              )}
-            >
-              {!message.isFromUser && (
-                <Avatar className="h-8 w-8 mr-3 bg-primary-100 text-primary-600 flex items-center justify-center flex-shrink-0">
-                  <Bot className="h-4 w-4" />
-                </Avatar>
-              )}
-              <div
-                className={cn(
-                  "p-3 rounded-lg shadow-sm max-w-[85%]",
-                  message.isFromUser
-                    ? "bg-primary-600 text-white"
-                    : "bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200"
-                )}
-              >
-                <p className="whitespace-pre-wrap">{message.content}</p>
-              </div>
-            </div>
-          ))}
-
-          {/* AI Typing Indicator */}
-          {isTyping && (
-            <div className="flex mb-4">
-              <Avatar className="h-8 w-8 mr-3 bg-primary-100 text-primary-600 flex items-center justify-center flex-shrink-0">
-                <Bot className="h-4 w-4" />
+        {/* Message History */}
+        {messages.map((message, index) => (
+          <div
+            key={index}
+            className={cn(
+              "mb-6 max-w-3xl mx-auto",
+              message.isFromUser ? "flex justify-end" : "flex"
+            )}
+          >
+            {!message.isFromUser && (
+              <Avatar className="h-8 w-8 mr-4 bg-green-600 text-white flex items-center justify-center flex-shrink-0 rounded-full">
+                <Bot className="h-5 w-5" />
               </Avatar>
-              <div className="bg-white dark:bg-gray-800 p-3 rounded-lg shadow-sm max-w-[85%]">
-                <p className="text-gray-800 dark:text-gray-200 whitespace-pre-wrap">
-                  {currentResponse}
-                </p>
+            )}
+            <div className="flex-1 text-base">
+              <p className="whitespace-pre-wrap">{message.content}</p>
+            </div>
+          </div>
+        ))}
+
+        {/* AI Typing Indicator */}
+        {isTyping && (
+          <div className="mb-6 max-w-3xl mx-auto flex">
+            <Avatar className="h-8 w-8 mr-4 bg-green-600 text-white flex items-center justify-center flex-shrink-0 rounded-full">
+              <Bot className="h-5 w-5" />
+            </Avatar>
+            <div className="flex-1">
+              <div className="flex space-x-2">
+                <div className="w-2 h-2 rounded-full bg-gray-400 animate-bounce"></div>
+                <div className="w-2 h-2 rounded-full bg-gray-400 animate-bounce" style={{ animationDelay: "0.2s" }}></div>
+                <div className="w-2 h-2 rounded-full bg-gray-400 animate-bounce" style={{ animationDelay: "0.4s" }}></div>
               </div>
             </div>
-          )}
-        </div>
+          </div>
+        )}
+      </div>
 
-        {/* Chat Input */}
-        <form onSubmit={handleSendMessage} className="border-t border-gray-200 p-3 bg-white dark:bg-gray-800 dark:border-gray-700">
-          <div className="flex items-center">
+      {/* Input Area */}
+      <div className="px-4 pb-4">
+        <div className="max-w-3xl mx-auto">
+          <form 
+            onSubmit={handleSendMessage}
+            className="relative flex items-center bg-gray-800 rounded-xl border border-gray-700 shadow-lg"
+          >
+            <Button 
+              type="button" 
+              variant="ghost" 
+              className="absolute left-2 text-gray-400 hover:text-gray-300"
+              size="icon"
+            >
+              <PlusIcon className="w-5 h-5" />
+            </Button>
+            
             <Input
               value={inputMessage}
               onChange={(e) => setInputMessage(e.target.value)}
-              placeholder="Type your question..."
-              className="flex-grow rounded-r-none focus-visible:ring-0"
+              placeholder="Ask anything..."
+              className="flex-1 py-6 px-12 border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 text-white placeholder-gray-400"
             />
-            <Button
-              type="submit"
-              className="rounded-l-none px-4"
-              disabled={!inputMessage.trim()}
-            >
-              <SendIcon className="h-4 w-4" />
-              <span className="sr-only">Send</span>
-            </Button>
+            
+            <div className="absolute right-2 flex space-x-1">
+              <Button 
+                type="button" 
+                variant="ghost" 
+                className="text-gray-400 hover:text-gray-300"
+                size="icon"
+              >
+                <SearchIcon className="w-5 h-5" />
+              </Button>
+              
+              <Button 
+                type="button" 
+                variant="ghost" 
+                className="text-gray-400 hover:text-gray-300"
+                size="icon"
+              >
+                <ImageIcon className="w-5 h-5" />
+              </Button>
+              
+              <Button 
+                type="button" 
+                variant="ghost" 
+                className="text-gray-400 hover:text-gray-300"
+                size="icon"
+              >
+                <MicIcon className="w-5 h-5" />
+              </Button>
+              
+              <Button 
+                type="submit" 
+                variant="ghost" 
+                className={cn(
+                  "text-gray-400 hover:text-gray-300",
+                  inputMessage.trim() ? "text-white hover:text-white" : ""
+                )}
+                size="icon"
+                disabled={!inputMessage.trim()}
+              >
+                <SendIcon className="w-5 h-5" />
+              </Button>
+            </div>
+          </form>
+          
+          <div className="text-xs text-gray-500 text-center mt-2">
+            Parkspass Assistant can make mistakes. Consider checking important information.
           </div>
-        </form>
-      </Card>
+        </div>
+      </div>
     </div>
   );
 }

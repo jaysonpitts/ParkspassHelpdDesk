@@ -21,6 +21,7 @@ export default function Header() {
 
   const navItems = [
     { label: "Help Center", href: "/" },
+    { label: "Ask AI Assistant", href: "/chat" },
     { label: "Submit a Request", href: "/submit-ticket" },
     { label: "Agent Portal", href: "/admin" },
   ];
