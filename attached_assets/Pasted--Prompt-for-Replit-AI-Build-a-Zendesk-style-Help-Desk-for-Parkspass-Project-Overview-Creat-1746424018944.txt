@@ -1,0 +1,77 @@
+**Prompt for Replit AI: Build a Zendesk‑style Help Desk for Parkspass**
+
+### Project Overview
+
+Create a full‑stack web application that provides:
+
+1. **Visitor Portal** – public knowledge‑base articles, advanced search, and ChatGPT‑powered live assistance trained on Parkspass docs + Utah State Parks website.
+2. **Agent Portal** – internal dashboard where Parkspass staff triage and respond to visitor tickets, update KB articles, and set ticket status to *Open*, *Pending*, or *Solved*.
+
+### Core Requirements
+
+#### 1. Tech Stack
+
+* **Frontend**: React (Vite) with Tailwind & shadcn/ui components.
+* **Backend**: Node (Express) + Prisma ORM → PostgreSQL.
+* **Auth**: Clerk.dev (email + social) with *visitor* and *agent* roles.
+* **Realtime**: Socket.io for agent ↔ visitor chat.
+* **AI**: OpenAI API (gpt‑4o) + embeddings (pgvector) for RAG over Parkspass KB markdown + selected stateparks.utah.gov pages.
+* **Search**: Fuse.js client search + server RAG endpoint.
+* **Deployment**: Replit Nix + Secrets for keys (OPENAI\_API\_KEY, DATABASE\_URL, CLERK\_SECRET, etc.).
+
+#### 2. Visitor Portal
+
+* Home page with KB categories & articles (Markdown → MDX).
+* Global search bar (client) + “Chat with Parkspass Assistant” floating widget.
+* Ticket form (name/email/order #, issue description, file upload). Creates ticket in DB and fires Socket.io room.
+* Chat interface shows agent replies & AI interim responses.
+
+#### 3. Agent Portal
+
+* Secure `/admin` route.
+* Ticket table with filters (status, date, tag).
+* Ticket detail view: message thread, quick macros, change status dropdown (*Open*, *Pending*, *Solved*), assign agent.
+* KB editor (Markdown WYSIWYG), version history.
+* Analytics page: ticket volume by day, avg resolution time.
+
+#### 4. Ticket Lifecycle
+
+```mermaid
+graph LR
+Visitor-- submits -->Ticket[DB: status=Open]
+Agent-- replies -->Visitor
+Agent-- sets Pending -->Ticket
+Visitor-- responds -->Ticket(Open)
+Agent-- sets Solved -->Ticket
+```
+
+#### 5. AI Assistant Flow
+
+1. Embed request → `/api/assist`.
+2. Server runs similarity search (pgvector) on KB & crawl cache.
+3. Build context, call OpenAI ChatCompletion.
+4. Stream answer back via SSE.
+5. Log Q\&A to ticket thread when initiated from ticket.
+
+### Deliverables
+
+* Complete Replit repo with working dev & prod ENV.
+* Seed script importing sample KB.
+* `README.md` covering setup, env vars, RAG indexing, and deployment.
+* Postman collection for API routes.
+
+### Nice‑to‑Have
+
+* Dark mode toggle.
+* Email/SMS alerts via Resend.
+* Webhook to Slack #support.
+
+---
+
+**Success Criteria**
+
+* Visitor can find answers via search, read articles, or chat with AI/agents.
+* Agents can close loop with clear status workflow.
+* KB edits instantly improve AI retrieval.
+
+Build clean, commented code ready for hand‑off.
