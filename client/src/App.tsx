@@ -44,12 +44,7 @@ function Router() {
         </Switch>
       </main>
       
-      {!isAgentPortal && (
-        <>
-          <Footer />
-          <ChatWidget />
-        </>
-      )}
+      {!isAgentPortal && <Footer />}
     </div>
   );
 }

@@ -6,6 +6,7 @@ import ArticleCard from "@/components/ArticleCard";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Category, Article } from "@shared/schema";
+import ChatHeroWidget from "@/components/ChatHeroWidget";
 
 // Icons for categories
 const categoryIcons: Record<string, JSX.Element> = {
@@ -43,15 +44,12 @@ export default function Home() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      {/* Hero Section */}
-      <section className="bg-gradient-to-r from-primary-600 to-secondary-500 rounded-xl text-white p-8 mb-8">
-        <div className="max-w-3xl mx-auto text-center">
-          <h1 className="text-3xl font-bold mb-4">How can we help you?</h1>
-          <p className="text-lg opacity-90 mb-6">
-            Find answers, guides, and expert advice for your Parkspass experience
-          </p>
-          <div className="max-w-xl mx-auto">
-            {/* Search is handled by the global SearchBar component in the header */}
+      {/* Hero/Chat Section */}
+      <section className="bg-gradient-to-b from-primary-900 to-primary-800 rounded-xl text-white p-8 mb-8">
+        <div className="max-w-4xl mx-auto text-center">
+          <h1 className="text-4xl font-bold mb-6">What can I help you with today?</h1>
+          <div className="mt-8">
+            <ChatHeroWidget />
           </div>
         </div>
       </section>
