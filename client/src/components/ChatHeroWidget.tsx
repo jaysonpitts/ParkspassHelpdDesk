@@ -75,6 +75,7 @@ export default function ChatHeroWidget() {
             variant="ghost" 
             className="absolute left-3 text-gray-400 hover:text-gray-600"
             size="icon"
+            title="New conversation"
           >
             <PlusIcon className="w-5 h-5" />
           </Button>
@@ -82,7 +83,7 @@ export default function ChatHeroWidget() {
           <Input
             value={inputMessage}
             onChange={(e) => setInputMessage(e.target.value)}
-            placeholder="Ask me anything about Utah State Parks..."
+            placeholder="Search or ask for help with Parkspass..."
             className="flex-1 py-7 px-14 border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 text-gray-900 dark:text-white placeholder-gray-500 text-base"
           />
           
@@ -92,6 +93,17 @@ export default function ChatHeroWidget() {
               variant="ghost" 
               className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
               size="icon"
+              title="Search knowledge base"
+            >
+              <SearchIcon className="w-5 h-5" />
+            </Button>
+
+            <Button 
+              type="button" 
+              variant="ghost" 
+              className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+              size="icon"
+              title="Voice input"
             >
               <MicIcon className="w-5 h-5" />
             </Button>
@@ -104,6 +116,7 @@ export default function ChatHeroWidget() {
                 inputMessage.trim() ? "bg-[#332a2a] hover:bg-[#413636] text-white" : "text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
               )}
               disabled={!inputMessage.trim()}
+              title="Send message"
             >
               <SendIcon className="w-5 h-5" />
             </Button>

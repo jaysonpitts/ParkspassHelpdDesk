@@ -41,9 +41,8 @@ export default function Header() {
           </Link>
         </div>
 
-        {/* Search Bar (Desktop) */}
+        {/* Center space */}
         <div className="hidden md:flex flex-1 max-w-lg mx-4">
-          <SearchBar />
         </div>
 
         {/* Navigation Links (Desktop) */}
@@ -101,10 +100,7 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Mobile Search (Hidden on desktop) */}
-      <div className="md:hidden px-4 pb-3">
-        <SearchBar />
-      </div>
+      {/* Mobile spacing (no search) */}
     </header>
   );
 }
