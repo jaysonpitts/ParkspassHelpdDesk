@@ -21,11 +21,6 @@ import ChatWidget from "@/components/ChatWidget";
 function Router() {
   const [location] = useLocation();
   const isAgentPortal = location.includes('/admin');
-  const isChatPage = location === '/chat';
-
-  if (isChatPage) {
-    return <ChatWidget />;
-  }
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
@@ -49,7 +44,12 @@ function Router() {
         </Switch>
       </main>
       
-      {!isAgentPortal && <Footer />}
+      {!isAgentPortal && (
+        <>
+          <Footer />
+          <ChatWidget />
+        </>
+      )}
     </div>
   );
 }
