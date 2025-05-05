@@ -33,22 +33,13 @@ export default function Home() {
   ).slice(0, 2);
 
   // Get category name for each article
-  const [articleWithCategories, setArticleWithCategories] = useState<
-    Array<Article & { categoryName: string }>
-  >([]);
-
-  useEffect(() => {
-    if (featuredArticles && categories) {
-      const enriched = featuredArticles.map(article => {
-        const category = categories.find(c => c.id === article.categoryId);
-        return {
-          ...article,
-          categoryName: category?.name || "Uncategorized"
-        };
-      });
-      setArticleWithCategories(enriched);
-    }
-  }, [featuredArticles, categories]);
+  const articleWithCategories = featuredArticles?.map(article => {
+    const category = categories?.find(c => c.id === article.categoryId);
+    return {
+      ...article,
+      categoryName: category?.name || "Uncategorized"
+    };
+  }) || [];
 
   return (
     <div className="container mx-auto px-4 py-8">

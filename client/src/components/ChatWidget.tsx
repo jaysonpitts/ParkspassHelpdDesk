@@ -7,6 +7,7 @@ import { nanoid } from "nanoid";
 // import { useAIChat } from "@/lib/socket";
 import { Card } from "@/components/ui/card";
 import { Avatar } from "@/components/ui/avatar";
+import { apiRequest } from "@/lib/queryClient";
 
 export default function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,13 +15,36 @@ export default function ChatWidget() {
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const sessionId = useRef(nanoid()).current;
   
-  // Temporarily use mock data until socket issue is fixed
+  // Temporarily use local state until socket issue is fixed
   const [messages, setMessages] = useState<Array<{ content: string, isFromUser: boolean }>>([]);
   const [isTyping, setIsTyping] = useState(false);
   const [currentResponse, setCurrentResponse] = useState('');
   
-  const sendMessage = (message: string) => {
+  const sendMessage = async (message: string) => {
+    // Add user message to messages
     setMessages(prev => [...prev, { content: message, isFromUser: true }]);
+    
+    // Simulate AI typing indicator
+    setIsTyping(true);
+    
+    try {
+      // Call assist API
+      const response = await apiRequest("POST", "/api/assist", { query: message });
+      const data = await response.json();
+      
+      // Add AI response
+      if (data.response) {
+        setMessages(prev => [...prev, { content: data.response, isFromUser: false }]);
+      }
+    } catch (error) {
+      console.error("Failed to get AI response:", error);
+      setMessages(prev => [...prev, { 
+        content: "Sorry, I'm having trouble connecting right now. Please try again later.", 
+        isFromUser: false 
+      }]);
+    } finally {
+      setIsTyping(false);
+    }
   };
 
   const toggleChat = () => {
