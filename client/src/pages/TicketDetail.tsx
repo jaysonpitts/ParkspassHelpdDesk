@@ -14,7 +14,7 @@ import {
 import AgentSidebar from "@/components/AgentSidebar";
 import TicketConversation from "@/components/TicketConversation";
 import { apiRequest } from "@/lib/queryClient";
-import { useTicketRoom } from "@/lib/socket";
+// import { useTicketRoom } from "@/lib/socket";
 import { useToast } from "@/hooks/use-toast";
 import { useAIAssistant } from "@/hooks/useAIAssistant";
 import { Ticket, TicketMessage, User } from "@shared/schema";
@@ -26,8 +26,11 @@ export default function TicketDetail() {
   const queryClient = useQueryClient();
   const { toast } = useToast();
   
-  // Set up socket.io connection for the ticket
-  const { updateStatus } = useTicketRoom(ticketId);
+  // Temporarily removed socket connection
+  // Mock function until socket issue is fixed
+  const updateStatus = (status: 'open' | 'pending' | 'solved') => {
+    console.log(`Status update to ${status} would be sent via socket`);
+  };
   
   // Manage message input
   const [messageInput, setMessageInput] = useState("");

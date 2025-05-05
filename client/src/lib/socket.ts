@@ -56,8 +56,14 @@ export function SocketProvider({ children }: SocketProviderProps) {
     };
   }, []);
 
+  // Create a context value object
+  const contextValue: SocketContextType = {
+    socket,
+    isConnected
+  };
+
   return (
-    <SocketContext.Provider value={{ socket, isConnected }}>
+    <SocketContext.Provider value={contextValue}>
       {children}
     </SocketContext.Provider>
   );

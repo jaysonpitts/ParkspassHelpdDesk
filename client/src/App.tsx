@@ -16,7 +16,7 @@ import AnalyticsPage from "@/pages/AnalyticsPage";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ChatWidget from "@/components/ChatWidget";
-import { SocketProvider } from "@/lib/socket";
+// import { SocketProvider } from "@/lib/socket";
 
 function Router() {
   const [location] = useLocation();
@@ -58,12 +58,10 @@ function App() {
   return (
     <ThemeProvider defaultTheme="light" storageKey="parkspass-theme">
       <QueryClientProvider client={queryClient}>
-        <SocketProvider>
-          <TooltipProvider>
-            <Toaster />
-            <Router />
-          </TooltipProvider>
-        </SocketProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Router />
+        </TooltipProvider>
       </QueryClientProvider>
     </ThemeProvider>
   );

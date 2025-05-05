@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { nanoid } from "nanoid";
-import { useAIChat } from "@/lib/socket";
+// import { useAIChat } from "@/lib/socket";
 import { Card } from "@/components/ui/card";
 import { Avatar } from "@/components/ui/avatar";
 
@@ -14,7 +14,14 @@ export default function ChatWidget() {
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const sessionId = useRef(nanoid()).current;
   
-  const { messages, sendMessage, isTyping, currentResponse } = useAIChat(sessionId);
+  // Temporarily use mock data until socket issue is fixed
+  const [messages, setMessages] = useState<Array<{ content: string, isFromUser: boolean }>>([]);
+  const [isTyping, setIsTyping] = useState(false);
+  const [currentResponse, setCurrentResponse] = useState('');
+  
+  const sendMessage = (message: string) => {
+    setMessages(prev => [...prev, { content: message, isFromUser: true }]);
+  };
 
   const toggleChat = () => {
     setIsOpen(!isOpen);
